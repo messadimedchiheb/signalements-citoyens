@@ -6,3 +6,4 @@ button { padding: 0.6rem; background: #0b5394; color: white; border: none; curso
 button:disabled { background: #999; cursor: not-allowed; }
 .erreur { color: #b00020; }
 li { margin-bottom: 0.5rem; }
+.carte { height: 400px; margin-bottom: 1.5rem; border: 1px solid #ccc; }

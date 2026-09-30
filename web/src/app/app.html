@@ -1,5 +1,7 @@
 <main>
   <h1>Signalements citoyens</h1>
+    <p>Cliquez sur la carte pour positionner le signalement.</p>
+  <div #carte class="carte"></div>
 
   <form [formGroup]="formulaire" (ngSubmit)="soumettre()">
     <label>
