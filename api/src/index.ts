@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { initDb } from './db';
 import { listerSignalements, creerSignalement } from './signalements.repository';
+import { initMessaging, publierEvenement } from './messaging';
 
 const app = express();
 app.use(express.json());
@@ -30,6 +31,7 @@ app.post('/signalements', async (req: Request, res: Response) => {
   }
 
   const signalement = await creerSignalement({ categorie, description, latitude, longitude });
+    publierEvenement('signalement.cree', { type: 'signalement.cree', signalement });
   res.status(201).json(signalement);
 });
 
@@ -38,6 +40,10 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   res.status(500).json({ message: 'Erreur interne du serveur' });
 });
 
-initDb().then(() => {
+async function demarrer(): Promise<void> {
+  await initDb();
+  await initMessaging();
   app.listen(3000, () => console.log('API demarree sur http://localhost:3000'));
-});
+}
+
+demarrer();
