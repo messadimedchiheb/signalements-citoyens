@@ -2,8 +2,10 @@ import express, { Request, Response, NextFunction } from 'express';
 import { initDb } from './db';
 import { listerSignalements, creerSignalement } from './signalements.repository';
 import { initMessaging, publierEvenement } from './messaging';
+import cors from 'cors';
 
 const app = express();
+app.use(cors({ origin: 'http://localhost:4200' }));
 app.use(express.json());
 
 const CATEGORIES = ['NID_DE_POULE', 'LAMPADAIRE', 'GRAFFITI', 'DECHETS'];
